@@ -86,7 +86,10 @@ class BaseAppFinder(abc.ABC):
 
     def _get_close_matches(self, dir_name: str, candidates: Set[str], similarity: float) -> List[str]:
         """Wrapper around difflib.get_close_matches"""
-        matches_ = difflib.get_close_matches(dir_name, candidates, cutoff=similarity)
+        candidates_list = list(candidates)
+        candidates_lower = [c.lower() for c in candidates_list]
+        matches_lower = difflib.get_close_matches(dir_name.lower(), candidates_lower, cutoff=similarity)
+        matches_ = [candidates_list[candidates_lower.index(m)] for m in matches_lower]
         matches = cast(List[str], matches_)  # as str is Sequence[str] - mypy/issues/5090
         if matches:
             logging.info(f'Found close ({similarity}) matches for {dir_name}: {matches}')

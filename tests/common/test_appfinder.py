@@ -12,7 +12,7 @@ from consts import IS_WINDOWS
 def candidates():
     """Bunch of owned game names that are candidates for matching algorithm"""
     return set(
-        ['Dummy', 'Haven Moon - DRM free', 'Trine 2: Complete Story', 'Space Pilgrim Episode III: Delta Pavonis', 'Halcyon 6: LIGHTSPEED EDITION', 'Shank 2', 'AaaaaAAaaaAAAaaAAAAaAAAAA!!! for the Awesome']
+        ['Dummy', 'Haven Moon - DRM free', 'Trine 2: Complete Story', 'Space Pilgrim Episode III: Delta Pavonis', 'Halcyon 6: LIGHTSPEED EDITION', 'Shank 2', 'AaaaaAAaaaAAAaaAAAAaAAAAA!!! for the Awesome', 'SHENZHEN I/O']
     )
 
 
@@ -28,6 +28,7 @@ def test_get_close_matches_exact(dirname, expected, candidates):
 @pytest.mark.parametrize('dirname, expected', [
     ('Dummy', ['Dummy']),
     ('Trine 2 Complete Story', ['Trine 2: Complete Story']),
+    ('Shenzhen IO', ['SHENZHEN I/O']),
 ])
 def test_get_close_matches_close(dirname, expected, candidates):
     result = AppFinder().get_close_matches(dirname, candidates, similarity=0.8)
